@@ -1,4 +1,4 @@
-describe("Helpers test (with setup and tear-down)", function() {
+describe("Payments test (with setup and tear-down)", function() {
   beforeEach(function () {
     // initialization logic
     billAmtInput.value = '300';
@@ -18,7 +18,7 @@ describe("Helpers test (with setup and tear-down)", function() {
     expect(typeof thisPayment).toEqual('object');
     expect(thisPayment.billAmt).toEqual('300');
     expect(thisPayment.tipAmt).toEqual('60');
-    expect(thisPayment.tipPercent).toEqual('20');
+    expect(thisPayment.tipPercent).toEqual(20);
   });
 
   it('should add a new tr in paymentTable for each payment added', function() {
@@ -34,7 +34,10 @@ describe("Helpers test (with setup and tear-down)", function() {
   it('should append the right values to the right rows on appendPaymentTable()', function() {
     let thisPayment = createCurPayment();
     appendPaymentTable(thisPayment);
-    expect(document.querySelector('#paymentTable tbody tr')).toEqual('<td>$300</td><td>$60</td><td>20%</td>')
+    let testTds = document.querySelectorAll('#paymentTable tbody tr td');
+    expect(testTds[0].innerText).toEqual('$300');
+    expect(testTds[1].innerText).toEqual('$60');
+    expect(testTds[2].innerText).toEqual('20%');
   });
 
   it('should update the right values to the totals on updateSummary()', function(){
@@ -42,16 +45,19 @@ describe("Helpers test (with setup and tear-down)", function() {
       payment1: {billAmt: '300', tipAmt: '60', tipPercent:'20'},
       payment2: {billAmt: '600', tipAmt: '30', tipPercent: '5'}
     };
-    expect(summaryTds[0].innerText).toEqual('$900');
-    expect(summaryTds[1].innerText).toEqual('$90');
-    expect(summaryTds[0].innerText).toEqual('13%');
+    updateSummary();
+    expect(summaryTds[0].innerHTML).toEqual('$900');
+    expect(summaryTds[1].innerHTML).toEqual('$90');
+    expect(summaryTds[2].innerHTML).toEqual('13%');
   });
-  
+
   afterEach(function() {
     // teardown logic
     allPayments = {};
     paymentId = 0;
-    updatePaymentTable();
+    paymentTbody.innerHTML = '';
     updateSummary();
+    billAmtInput.value = '';
+    tipAmtInput.value = '';
   });
 });
