@@ -22,11 +22,11 @@ describe("Stepthree test (with setup and tear-down)", function() {
   it('should remove an entry in the allServers or allPayments object on removeFromObject()', function(){
     let clickTar = document.querySelector('#server2 .delete');
     removeFromObject(clickTar)
-    expect(allServers['server2']).toThrow();
+    expect(allServers['server2']).toBeFalsy();
     expect(allServers['server1']).toEqual({serverName: 'jeff'});
     clickTar = document.querySelector('#payment1 .delete');
     removeFromObject(clickTar);
-    expect(allPayments['payment1']).toThrow();
+    expect(allPayments['payment1']).toBeFalsy();
     expect(allPayments['payment2']).toEqual({billAmt: '100', tipAmt: '20', tipPercent: 20});
   });
 
@@ -34,7 +34,7 @@ describe("Stepthree test (with setup and tear-down)", function() {
     let clickTar = document.querySelector('#server1 .delete');
     let testTrs = document.querySelectorAll('#serverTable tbody tr');
     expect(testTrs.length).toEqual(2);
-    deleteParent(clickTar);
+    deleteParent();
     expect(testTrs.length).toEqual(1);
     expect(clickTar).toBeFalsy;
   });
@@ -43,9 +43,9 @@ describe("Stepthree test (with setup and tear-down)", function() {
     let clickTar = document.querySelector('#payment2 .delete');
     let testTrs = document.querySelectorAll('#paymentTable tbody tr');
     expect(testTrs.length).toEqual(2);
-    deleteParent(clickTar);
+    deleteParent();
     expect(testTrs.length).toEqual(1);
-    expect(clickTar).toBeFalsy;
+    expect(clickTar).toBeFalsy();
   });
 
   afterEach(function() {
