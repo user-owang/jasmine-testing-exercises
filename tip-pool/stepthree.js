@@ -12,17 +12,17 @@ function appendDeleteBtn(tr) {
 function deleteParent(event) {
   if(event){
     event.target.parentElement.remove();
-    removeFromArray(event.target);
+    removeFromObject(event.target);
   } else{
     clickTar.parentElement.remove();
-    removeFromArray(clickTar);
+    removeFromObject(clickTar);
   }
   updateServerTable();
   updateSummary();
 };
 
 //removes from allServers or allPayments
-function removeFromArray(target) {
+function removeFromObject(target) {
   let parentId = target.parentElement.id;
     if (parentId.indexOf('server') > -1) {
       delete allServers[parentId];
