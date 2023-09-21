@@ -34,16 +34,18 @@ describe("Stepthree test (with setup and tear-down)", function() {
     let clickTar = document.querySelector('#server1 .delete');
     let testTrs = document.querySelectorAll('#serverTable tbody tr');
     expect(testTrs.length).toEqual(2);
-    deleteParent();
+    clickTar.click();
     expect(testTrs.length).toEqual(1);
-    expect(clickTar).toBeFalsy;
+    expect(clickTar).toBeFalsy();
   });
 
   it('should remove the parent tr of the target on deleteParent() for payment', function() {
     let clickTar = document.querySelector('#payment2 .delete');
     let testTrs = document.querySelectorAll('#paymentTable tbody tr');
     expect(testTrs.length).toEqual(2);
-    deleteParent();
+    console.log(document);
+    clickTar.click();
+    console.log(document);
     expect(testTrs.length).toEqual(1);
     expect(clickTar).toBeFalsy();
   });
